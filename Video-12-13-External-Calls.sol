@@ -54,7 +54,7 @@ contract OtherContract {
         uint256[] calldata data1,
         uint256[] calldata data2
     ) external pure returns (bool) {
-        require(data1.length != data2.length, "invalid");
+        require(data1.length == data2.length, "invalid");
 
         // this is often better done with a hash function, but we want to enforce
         // the array is proper for this test
