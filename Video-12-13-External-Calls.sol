@@ -97,7 +97,7 @@ contract ExternalCalls {
             // 000000000000000000000000000000000000000000000000000000009a884bde
             //                                                         |       |
             //                                                         28      32
-            let success := staticcall(gas(), _a, 28, 32, 0x00, 0x20)
+            let success := staticcall(gas(), _a, 28, 4, 0x00, 0x20)
             if iszero(success) {
                 revert(0, 0)
             }
@@ -108,7 +108,7 @@ contract ExternalCalls {
     function getViaRevert(address _a) external view returns (uint256) {
         assembly {
             mstore(0x00, 0x73712595)
-            pop(staticcall(gas(), _a, 28, 32, 0x00, 0x20))
+            pop(staticcall(gas(), _a, 28, 4, 0x00, 0x20))
             return(0x00, 0x20)
         }
     }
@@ -128,7 +128,7 @@ contract ExternalCalls {
                 gas(),
                 _a,
                 add(oldMptr, 28),
-                mload(0x40),
+                sub(mload(0x40), add(oldMptr, 28)),
                 0x00,
                 0x20
             )
@@ -153,7 +153,7 @@ contract ExternalCalls {
                 _a,
                 callvalue(),
                 28,
-                add(28, 32),
+                36,
                 0x00,
                 0x00
             )
@@ -172,7 +172,7 @@ contract ExternalCalls {
             mstore(0x00, 0x7c70b4db)
             mstore(0x20, amount)
 
-            let success := staticcall(gas(), _a, 28, add(28, 32), 0x00, 0x00)
+            let success := staticcall(gas(), _a, 28, 36, 0x00, 0x00)
             if iszero(success) {
                 revert(0, 0)
             }
