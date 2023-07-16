@@ -78,7 +78,7 @@ contract StoragePart1 {
                 value,
                 0x100000000000000000000000000000000000000000000000000000000
             )
-            e := and(0xffffffff, shifted)
+            e := and(0xffff, shifted)
         }
     }
 }
